@@ -1,0 +1,34 @@
+## basic
+max_cycle = 200                                     # Maximum number of cycles to run. (ex. 1, ..., 123, ..., 999)
+n_replica = 64                                      # Number of replica. (ex. 1, ..., 123, ..., 999)
+n_parallel = 64                                     # Number of replica which are calculated at a time
+centering = true                                    # Whether to move the molecule to the center
+centering_selection = "Target"                      # Name of molecule to move in the center
+working_dir = "/vol0500/data/hp240024/u12748/md/20241006_FUS_6G99_ZnF/6_prd-3"
+                                                    # Directory where pacsmd will run
+
+## simulator
+simulator = "gromacs"                               # Simulator used inside PaCS-MD
+cmd_mpi = "mpirun -np 384"                          # Commands for MPI such as mpirun, blank is OK
+cmd_serial = "gmx_mpi mdrun -ntomp 8"               # Commands to run the simulator serially
+cmd_parallel = "gmx_mpi mdrun -ntomp 8"             # Commands to run the simulator parallelly
+structure = "./initial_structures/10.gro" # Structural file such as gro, pdb, rst7, etc.
+topology = "../2_md-preparation/gleap.top"          # Topology file such as top, parm7, psf, etc.
+mdconf = "./prd-pacs.mdp"                           # Parameter file such as mdp, mdin, namd, etc.
+index_file = "../2_md-preparation/gleap.ndx"        # Gromacs index file
+trajectory_extension = ".xtc"                       # Trajectory file extension. ("." is necessary)
+
+## analyzer
+type = "dissociation"                               # Evaluation type
+threshold = 7                                      # CV threshold used to decide whether to terminate the calculation (in units of nm)
+skip_frame = 1                                      # How many frames to skip when ranking CVs
+analyzer = "gromacs"                                # Trajectory tool used to calculate the evaluation type
+# reference = "../1_modelling/XXX.pdb"
+                                                    # Structure for comparison
+selection1 = "Protein"                             # Selection string for specified group in trajectroies (least squares fit)
+selection2 = "Rna"                             # Selection string for specified group in trajectories (RMSD calculation)
+# selection3 = "Backbone"                             # Selection string for specified group in reference (least squares fit)
+# selection4 = "Backbone"                             # Selection string for specified group in reference (RMSD calculation)
+
+## postprocess
+cmd_gmx = "gmx"                             # cmd_gmx for analyze (This command is necessary to specify on fugaku)
