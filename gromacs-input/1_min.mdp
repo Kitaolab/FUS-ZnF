@@ -1,0 +1,24 @@
+;min
+;https://manual.gromacs.org/documentation/2023-current/user-guide/mdp-options.html
+
+define                  = -DPOSRES_1000
+
+; Run parameters
+integrator              = steep
+nsteps                  = 5000
+
+; Neighborsearching
+cutoff-scheme           = Verlet
+nstlist                 = 1
+pbc                     = xyz
+
+; Van der Waals interactions
+vdwtype                 = Cut-off
+rvdw                    = 1.0
+DispCorr                = EnerPres
+
+; Electrostatics
+coulombtype             = PME
+rcoulomb                = 1.0
+pme-order               = 4
+fourierspacing          = 0.16
